@@ -13,8 +13,13 @@ import java.awt.Point;
  * @author Leonardo
  */
 public class Underwater extends WaterElement{
+    
+    
+    public double propeller_efficiency;
+    public double rudder_efficiency;
+    public double inmersion_efficiency;
 
-    public Underwater(int loot_value, int size, int speed, int depth, Color color, Double direction, Point localisation) {
+    public Underwater(int loot_value, int size, double speed, double depth, Color color, Double direction, Point localisation) {
         super(loot_value, size, speed, depth, color, direction, localisation);
     }
     
