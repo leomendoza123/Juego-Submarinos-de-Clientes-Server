@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.io.Serializable;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -20,7 +21,8 @@ import java.util.logging.Logger;
  * @author Leonardo
  */
 public abstract class WaterElement extends Thread implements Serializable {
-    public int loot_value, size, depth; 
+    public int loot_value, size; 
+    public double depth; 
     public double speed; 
     public Color color; 
     public Double direction;
@@ -29,7 +31,7 @@ public abstract class WaterElement extends Thread implements Serializable {
     public Lock WaterElementLock = new ReentrantLock();
 
 
-    public WaterElement(int loot_value, int size, int speed, int depth, Color color, Double direction, Point localisation) {
+    public WaterElement(int loot_value, int size, double speed, double depth, Color color, Double direction, Point localisation) {
         this.loot_value = loot_value;
         this.size = size;
         this.speed = speed;
@@ -61,8 +63,8 @@ public abstract class WaterElement extends Thread implements Serializable {
     private void moving() {
         if (speed>0){
           
-                localisation.x += speed * sin(direction);
-                localisation.y += speed * cos(direction);
+                localisation.x += speed * sin(-1*toRadians(direction));
+                localisation.y += speed * cos(-1*toRadians(direction));
                 
         }
     }
