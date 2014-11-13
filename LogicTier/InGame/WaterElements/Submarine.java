@@ -7,6 +7,7 @@ package LogicTier.InGame.WaterElements;
 
 import java.awt.Color;
 import java.awt.Point;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -19,6 +20,8 @@ public class Submarine extends Underwater {
     public Submarine(int loot_value, int size, double speed, double depth, Color color, Double direction, Point localisation) {
         super(loot_value, size, speed, depth, color, direction, localisation);
         propeller_efficiency = 1;
+        inmersion_efficiency = 1;
+        rudder_efficiency = 1;
     }
 
     @Override
@@ -28,8 +31,6 @@ public class Submarine extends Underwater {
     }
 
     private void controlTest() {
-
-
 
         if (this.depth != this.control_depht) {
             double diference = control_depht - depth;
@@ -43,10 +44,25 @@ public class Submarine extends Underwater {
 
         if (this.direction != this.control_direction) {
             double diference = control_direction - direction;
-            if (diference > 0) {
-                direction += rudder_efficiency;
-            } else {
-                direction -= rudder_efficiency;
+            if (abs(diference) > 180) {
+                if (diference > 0) {
+                    direction -= rudder_efficiency;
+                } else {
+                    direction += rudder_efficiency;
+                }
+            } 
+            else {
+                if (diference > 0) {
+                    direction += rudder_efficiency;
+                } else {
+                    direction -= rudder_efficiency;
+                }
+            }
+            if (direction > 359.9) {
+                direction = 0.1;
+            }
+            if (direction < 0.1) {
+                direction = 359.9;
             }
 
         }
