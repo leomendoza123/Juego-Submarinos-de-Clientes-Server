@@ -68,6 +68,7 @@ public class radar extends javax.swing.JPanel {
         for (WaterElement neighbor : neighborhood) {               
             
             if (neighbor != null) {
+               
                 Point neighborLocalisation = neighbor.localisation;
                 double distance = localisation.distance(neighborLocalisation);
                 if (distance < radar_power) {
@@ -78,7 +79,7 @@ public class radar extends javax.swing.JPanel {
                     double relative_neighborXdiference = neighborXdiference /2 / relative_w; 
                     double relative_neighborYdiference = neighborYdiference /2 / relative_h;
                     //TODO hacer color realtivo a quien es el vecino
-                    g2d.setColor(Color.red);
+                    g2d.setColor(neighbor.color);
                     g2d.fillOval(w/2-dotsize/2+(int)relative_neighborXdiference,h/2-dotsize/2+(int)relative_neighborYdiference, dotsize, dotsize);
 
                 }
