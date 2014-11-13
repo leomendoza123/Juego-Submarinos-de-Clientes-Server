@@ -8,6 +8,8 @@ package LogicTier.InGame.WaterElements;
 import java.awt.Color;
 import java.awt.Point;
 import java.io.Serializable;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.Level;
@@ -58,12 +60,10 @@ public abstract class WaterElement extends Thread implements Serializable {
 
     private void moving() {
         if (speed>0){
-            try {
-                localisation.x+=1*speed;
-                sleep(10);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(WaterElement.class.getName()).log(Level.SEVERE, null, ex);
-            }
+          
+                localisation.x += speed * sin(direction);
+                localisation.y += speed * cos(direction);
+                
         }
     }
     
