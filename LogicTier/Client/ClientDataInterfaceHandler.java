@@ -38,8 +38,8 @@ public class ClientDataInterfaceHandler extends Thread {
                 pantallaCliente.getDepht_monitor().setValue(depht);
                 pantallaCliente.getDepht_monitorlabel().setText("" + depht);
 
-                int speed = datapack.self.speed;
-                pantallaCliente.getSpeed_monitor().setValue(speed);
+                double speed = datapack.self.speed;
+                pantallaCliente.getSpeed_monitor().setValue((int)speed);
                 pantallaCliente.getSpeed_monitorlabel().setText("" + speed);
 
                 double direction = datapack.self.direction;

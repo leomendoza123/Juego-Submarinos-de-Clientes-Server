@@ -53,7 +53,6 @@ public class Ocean extends Thread {
     public void run() {
         while (OceanRuning) {
             clientNeighborhoodUpdate();
-            controlTest();
             addNewWaterElementsFromClients(); 
             startNewWaterElements();
         }
@@ -89,30 +88,11 @@ public class Ocean extends Thread {
 
         Random r = new Random();
         Point Localization;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 30; i++) {
             Localization = new Point(r.nextInt() % 1000, r.nextInt() % 1000);
             Ship newShip = new Ship(10, 0, 0, 0, Color.BLACK, 0.0, Localization);
             neighborhood.add(newShip);
         }
-    }
-
-    private void controlTest() {
-
-        try {
-            for (Datapack clientePack : clients) {
-                clientePack.DatapackLock.lock();
-                try {
-                    clientePack.self.depth = clientePack.self.control_depht;
-                    clientePack.self.direction = (double) clientePack.self.control_direction;
-                    clientePack.self.speed = clientePack.self.control_speed;
-                } finally {
-                    clientePack.DatapackLock.unlock();
-                }
-
-            }
-        } catch (java.lang.NullPointerException ex) {
-        }
-
     }
 
     private void clientNeighborhoodUpdate() {

@@ -9,6 +9,7 @@ package DataTier.Server;
 import DataTier.Packs.Datapack;
 import LogicTier.Server.Ocean;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class Server{
     public void runServer(JTextArea server_text_area)
     {
         
+        
         ocean = new Ocean();
      
         try{
@@ -39,6 +41,8 @@ public class Server{
             //Se empieza a correr para detectar conexiones de jugadores
             
             ocean.start();
+            InetAddress IP=InetAddress.getLocalHost();
+            server_text_area.append("IP of my system is := "+IP.getHostAddress());
             NewClientsListener clientListener = new NewClientsListener(this, server_text_area);
             clientListener.start();
         

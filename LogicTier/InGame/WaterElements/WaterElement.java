@@ -18,7 +18,8 @@ import java.util.logging.Logger;
  * @author Leonardo
  */
 public abstract class WaterElement extends Thread implements Serializable {
-    public int loot_value, size, speed, depth; 
+    public int loot_value, size, depth; 
+    public double speed; 
     public Color color; 
     public Double direction;
     public Point localisation;  
@@ -40,19 +41,30 @@ public abstract class WaterElement extends Thread implements Serializable {
     public void run (){
         while(runing){
             WaterElementLock.lock();
+            moving();
+            stateupdating();
+            WaterElementLock.unlock();
+            try { 
+                sleep (100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(WaterElement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
+    }
+    
+    public void stateupdating(){
+        
+    }
+
+    private void moving() {
         if (speed>0){
             try {
-                localisation.x+=1*speed; 
+                localisation.x+=1*speed;
                 sleep(10);
             } catch (InterruptedException ex) {
                 Logger.getLogger(WaterElement.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        WaterElementLock.unlock();
-            
-            
-        }
-        
     }
     
     @Override

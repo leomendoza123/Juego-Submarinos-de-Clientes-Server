@@ -12,17 +12,43 @@ import java.awt.Point;
  *
  * @author Leonardo
  */
-public class Submarine extends Underwater{
-    public int control_depht, control_speed, control_direction; 
+public class Submarine extends Underwater {
+
+    public int control_depht;
+    public double control_speed, control_direction;
     
+    public double turbine_efficiency;
+
     public Submarine(int loot_value, int size, int speed, int depth, Color color, Double direction, Point localisation) {
         super(loot_value, size, speed, depth, color, direction, localisation);
+        turbine_efficiency = 1; 
     }
 
     @Override
-    public String toString() {
-        return "Submarine{" + "control_depht=" + control_depht + ", control_speed=" + control_speed + ", control_direction=" + control_direction + '}';
+    public void stateupdating() {
+        controlTest();
+
     }
+
+    private void controlTest() {
+
+        
+        this.depth = this.control_depht;
+        this.direction = (double) this.control_direction;
+        
+        if  (this.speed!=this.control_speed){
+            double diference = control_speed-speed; 
+            if (diference>0){
+                control_speed+=turbine_efficiency; 
+            }
+            else{
+                control_speed-=turbine_efficiency; 
+            }
+            
+        }
+    }
+
+
     
     
     

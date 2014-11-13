@@ -10,6 +10,8 @@ import LogicTier.InGame.WaterElements.WaterElement;
 import java.io.*;
 import java.net.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextArea;
 
 /**
@@ -94,8 +96,6 @@ public class TheardToClient extends Thread {
 
     private void DataFromClientpackToServerPack(Datapack Clientpack, Datapack Serverpack) {
         Serverpack.DatapackLock.lock();
-        String data = Clientpack.self.toString() + "\n";
-        server_text_area.append(data);
         Serverpack.player = Clientpack.player;
         Serverpack.self.WaterElementLock.lock();
         Serverpack.self.control_depht = Clientpack.self.control_depht;
@@ -103,5 +103,11 @@ public class TheardToClient extends Thread {
         Serverpack.self.control_speed = Clientpack.self.control_speed;
         Serverpack.self.WaterElementLock.unlock();
         Serverpack.DatapackLock.unlock();
+        
+        try {
+            sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TheardToClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
