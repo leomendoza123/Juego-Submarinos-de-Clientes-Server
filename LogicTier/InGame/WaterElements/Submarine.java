@@ -21,7 +21,7 @@ public class Submarine extends Underwater {
 
     public Submarine(int loot_value, int size, int speed, int depth, Color color, Double direction, Point localisation) {
         super(loot_value, size, speed, depth, color, direction, localisation);
-        turbine_efficiency = 1; 
+        turbine_efficiency = 0.1; 
     }
 
     @Override
@@ -39,10 +39,10 @@ public class Submarine extends Underwater {
         if  (this.speed!=this.control_speed){
             double diference = control_speed-speed; 
             if (diference>0){
-                control_speed+=turbine_efficiency; 
+                speed+=turbine_efficiency; 
             }
             else{
-                control_speed-=turbine_efficiency; 
+                speed-=turbine_efficiency; 
             }
             
         }
