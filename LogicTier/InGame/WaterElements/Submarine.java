@@ -14,14 +14,11 @@ import java.awt.Point;
  */
 public class Submarine extends Underwater {
 
-    public int control_depht;
-    public double control_speed, control_direction;
-    
-    public double turbine_efficiency;
+    public double control_speed, control_direction, control_depht;
 
-    public Submarine(int loot_value, int size, int speed, int depth, Color color, Double direction, Point localisation) {
+    public Submarine(int loot_value, int size, double speed, double depth, Color color, Double direction, Point localisation) {
         super(loot_value, size, speed, depth, color, direction, localisation);
-        turbine_efficiency = 0.1; 
+        propeller_efficiency = 1;
     }
 
     @Override
@@ -32,25 +29,36 @@ public class Submarine extends Underwater {
 
     private void controlTest() {
 
-        
-        this.depth = this.control_depht;
-        this.direction = (double) this.control_direction;
-        
-        if  (this.speed!=this.control_speed){
-            double diference = control_speed-speed; 
-            if (diference>0){
-                speed+=turbine_efficiency; 
+
+
+        if (this.depth != this.control_depht) {
+            double diference = control_depht - depth;
+            if (diference > 0) {
+                depth += inmersion_efficiency;
+            } else {
+                depth -= inmersion_efficiency;
             }
-            else{
-                speed-=turbine_efficiency; 
+
+        }
+
+        if (this.direction != this.control_direction) {
+            double diference = control_direction - direction;
+            if (diference > 0) {
+                direction += rudder_efficiency;
+            } else {
+                direction -= rudder_efficiency;
             }
-            
+
+        }
+        if (this.speed != this.control_speed) {
+            double diference = control_speed - speed;
+            if (diference > 0) {
+                speed += propeller_efficiency;
+            } else {
+                speed -= propeller_efficiency;
+            }
+
         }
     }
 
-
-    
-    
-    
-    
 }
