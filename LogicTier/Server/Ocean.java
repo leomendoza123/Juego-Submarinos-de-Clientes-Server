@@ -103,7 +103,8 @@ public class Ocean extends Thread {
             try {
                 datapack.neighborhood = new ArrayList<>();
                 for (WaterElement neighbor : neighborhood) {
-                    datapack.neighborhood.add(neighbor);
+                    if (neighbor!= datapack.self)
+                        datapack.neighborhood.add(neighbor);
                 }
             } finally {
                 datapack.DatapackLock.unlock();
