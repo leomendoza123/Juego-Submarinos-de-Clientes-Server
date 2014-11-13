@@ -50,6 +50,10 @@ public class ClientDataInterfaceHandler extends Thread {
                 pantallaCliente.getRadar().neighborhood = datapack.neighborhood;
                 pantallaCliente.getRadar().localisation = datapack.self.localisation;
                 pantallaCliente.getRadar().repaint();
+                
+                //TODO 
+                //
+                 double health = datapack.self.health;
                         
 
             } catch (InterruptedException ex) {

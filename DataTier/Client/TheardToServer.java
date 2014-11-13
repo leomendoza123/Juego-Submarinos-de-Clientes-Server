@@ -89,6 +89,10 @@ public class TheardToServer extends Thread {
         Clientdatapack.self.size = Serverdatapack.self.size;
         Clientdatapack.neighborhood  = Serverdatapack.neighborhood;
         Clientdatapack.self.localisation = Serverdatapack.self.localisation; 
+        Clientdatapack.self.health = Clientdatapack.self.health; 
+        if (Clientdatapack.player.points<Serverdatapack.player.points){
+            Clientdatapack.player.points = Serverdatapack.player.points; 
+        }
         Clientdatapack.DatapackLock.unlock();
     }
 

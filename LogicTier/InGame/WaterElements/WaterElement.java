@@ -24,6 +24,7 @@ public abstract class WaterElement extends Thread implements Serializable {
     public int loot_value, size; 
     public double depth; 
     public double speed; 
+    public double health; 
     public Color color; 
     public Double direction;
     public Point localisation;  

@@ -12,9 +12,9 @@ import java.io.Serializable;
  * @author Leonardo
  */
 public class Player implements Serializable{
-    int points; 
-    String name; 
-    Team team; 
+    public int points; 
+    public String name; 
+    public Team team; 
 
     public Player(int points, String name) {
         this.points = points;

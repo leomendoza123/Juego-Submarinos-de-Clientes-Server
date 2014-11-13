@@ -102,6 +102,14 @@ public class TheardToClient extends Thread {
         Serverpack.self.control_direction = Clientpack.self.control_direction;
         Serverpack.self.control_speed = Clientpack.self.control_speed;
         Serverpack.self.WaterElementLock.unlock();
+        Serverpack.self.inmersion_efficiency =  Clientpack.self.inmersion_efficiency;
+        Serverpack.self.rudder_efficiency =  Clientpack.self.rudder_efficiency;
+        Serverpack.self.propeller_efficiency =  Clientpack.self.propeller_efficiency;
+        
+        if(Serverpack.player.points>Clientpack.player.points){
+            Serverpack.player.points = Clientpack.player.points; 
+        }
+
         Serverpack.DatapackLock.unlock();
         
         try {
