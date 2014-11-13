@@ -10,6 +10,7 @@ import DataTier.Client.Client;
 import DataTier.Packs.Datapack;
 import LogicTier.InGame.Players.Player;
 import LogicTier.InGame.WaterElements.Submarine;
+import eu.hansolo.steelseries.gauges.DigitalRadial;
 import eu.hansolo.steelseries.gauges.DisplayRectangular;
 import eu.hansolo.steelseries.gauges.Radial;
 import eu.hansolo.steelseries.gauges.Radial2Top;
@@ -35,7 +36,7 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
     Radial gaugeProfundidad;
     DisplayRectangular gaugeGrados;
     Radial2Top gaugeVelocidad;
-    
+    DigitalRadial gaugeVida;
     /**
      * Creates new form PantallaBienvenida
      */
@@ -55,6 +56,9 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         gaugeVelocidad.setTitle("Speed");
         gaugeVelocidad.setUnitString("100 Max U");
         gaugeVelocidad.setMaxValue(100);
+        
+        gaugeVida = new DigitalRadial();
+        gaugeVida.setMaxValue(10);
         
         
         initComponents();
@@ -145,6 +149,12 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
             }
         };
         jPanel3 = new JPanel() {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(300, 300);
+            }
+        };
+        jPanel4 = new JPanel() {
             @Override
             public Dimension getPreferredSize() {
                 return new Dimension(300, 300);
@@ -273,6 +283,20 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         jPanel3.setLayout(new BorderLayout());
         jPanel3.add(gaugeVelocidad, BorderLayout.CENTER);
 
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        jPanel4.setLayout(new BorderLayout());
+        jPanel4.add(gaugeVida, BorderLayout.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,15 +339,14 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
                                 .addComponent(direction_label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(direction_monitorlabel)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -360,9 +383,11 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(120, 120, 120)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(149, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         pack();
@@ -436,6 +461,7 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea_monitor;
     private PresentationTier.Cliente.radar radar;
