@@ -13,6 +13,7 @@ import LogicTier.InGame.WaterElements.Submarine;
 import eu.hansolo.steelseries.gauges.DigitalRadial;
 import eu.hansolo.steelseries.gauges.DisplayRectangular;
 import eu.hansolo.steelseries.gauges.Radial;
+import eu.hansolo.steelseries.gauges.Radial1Square;
 import eu.hansolo.steelseries.gauges.Radial2Top;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -34,7 +35,7 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
     Player player; 
     Submarine self; 
     Radial gaugeProfundidad;
-    DisplayRectangular gaugeGrados;
+    Radial1Square gaugeGrados;
     Radial2Top gaugeVelocidad;
     DigitalRadial gaugeVida;
     /**
@@ -49,7 +50,9 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         gaugeProfundidad.setTitle("Depth Units");
         gaugeProfundidad.setUnitString("100 Max U");
         
-        gaugeGrados = new DisplayRectangular();
+        gaugeGrados = new Radial1Square();
+        gaugeGrados.setTitle("Grados");
+        gaugeGrados.setUnitString("360 Max U");
         gaugeGrados.setMaxValue(360);
         
         gaugeVelocidad = new Radial2Top();
