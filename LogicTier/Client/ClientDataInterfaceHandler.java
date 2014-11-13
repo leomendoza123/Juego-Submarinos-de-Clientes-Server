@@ -34,8 +34,8 @@ public class ClientDataInterfaceHandler extends Thread {
         while (true) {
             try {
                 Thread.sleep(100);
-                int depht = datapack.self.depth;
-                pantallaCliente.getDepht_monitor().setValue(depht);
+                double depht = datapack.self.depth;
+                pantallaCliente.getDepht_monitor().setValue((int)depht);
                 pantallaCliente.getDepht_monitorlabel().setText("" + depht);
 
                 double speed = datapack.self.speed;
