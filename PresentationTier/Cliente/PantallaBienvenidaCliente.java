@@ -74,6 +74,7 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         
         teamPanel2.currentPlayer = player; 
         teamPanel2.playerTeam = datapack.neighborhoodTeams; 
+        teamPanel2.newTeam = datapack.newTeam; 
               
         cliente = new Client();
         try {

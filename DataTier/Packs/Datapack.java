@@ -38,15 +38,15 @@ public class Datapack implements Serializable {
         neighborhoodTeams = new ArrayList<>();
         this.player = player;
         this.self = self;
-        newTeam = null; 
+        newTeam = new Team();
     }
 
     public Datapack() {
         neighborhood = new ArrayList<>();
-        neighborhoodTeams = new ArrayList<>(); 
+        neighborhoodTeams = new ArrayList<>();
         this.player = new Player();
         this.self = null;
-        newTeam = null; 
+        newTeam = new Team();
 
     }
 
@@ -61,17 +61,49 @@ public class Datapack implements Serializable {
         Clientdatapack.self.speed = Serverdatapack.self.speed;
         Clientdatapack.self.size = Serverdatapack.self.size;
         Clientdatapack.neighborhood = Serverdatapack.neighborhood;
-        
+
         Clientdatapack.self.localisation = Serverdatapack.self.localisation;
         Clientdatapack.self.health = Clientdatapack.self.health;
         if (Clientdatapack.player.points < Serverdatapack.player.points) {
             Clientdatapack.player.points = Serverdatapack.player.points;
         }
-        
+
         /// Manejo de vecinos
-        Clientdatapack.neighborhoodTeams.clear(); 
-        for (Team currentTeam: Serverdatapack.neighborhoodTeams){
-            Clientdatapack.neighborhoodTeams.add(currentTeam);
+        // SI DETECTA ALGUN CAMBIO EN EL TAMAÑO DE LA LISTA 
+        if (Clientdatapack.neighborhoodTeams.size() != Serverdatapack.neighborhoodTeams.size()) {
+            Clientdatapack.neighborhoodTeams.clear();
+            for (Team currentTeam : Serverdatapack.neighborhoodTeams) {
+                Clientdatapack.neighborhoodTeams.add(currentTeam);
+            }
+            // Revisa que el Team que creo ya este creado 
+            if (Clientdatapack.newTeam.name != null) {
+                for (Team currentTeam : Serverdatapack.neighborhoodTeams) {
+                    if (currentTeam.name == null ? Clientdatapack.newTeam.name == null : currentTeam.name.equals(Clientdatapack.newTeam.name)) {
+                        Clientdatapack.newTeam.name = null;
+                    }
+                }
+
+            }
+        }
+
+        for (Team currentServerTeam : Serverdatapack.neighborhoodTeams) {
+            for (Team currentClienTeam : Clientdatapack.neighborhoodTeams) {
+                if (currentClienTeam.name.equals(currentServerTeam.name)) {
+                    // Busca el equipo equivalente
+                    if (currentServerTeam.leader.name == null ? Clientdatapack.player.name == null : currentServerTeam.leader.name.equals(Clientdatapack.player.name)) {
+                        // Si el cliente es dueño del team
+                        if (currentClienTeam.aceptedRequest.size() > 0) {
+                            /// >>> Revisa que el miembro que acepto ya este aceptado 
+                            for (Player playerMember : currentServerTeam.members) {
+                                if (playerMember.name.equals(currentClienTeam.aceptedRequest.get(0))) {
+                                    currentClienTeam.aceptedRequest.clear();
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         Clientdatapack.DatapackLock.unlock();
@@ -92,20 +124,20 @@ public class Datapack implements Serializable {
         if (Serverpack.player.points > Clientpack.player.points) {
             Serverpack.player.points = Clientpack.player.points;
         }
-        
+
         boolean team_existens;
         for (Team ClientcurrentTeam : Clientpack.neighborhoodTeams) {
-            
+
             for (Team ServercurrentTeam : Serverpack.neighborhoodTeams) {
-                
+
                 // Encuentra los equipos equivalentes
-                if (ClientcurrentTeam.name!= null &&  ClientcurrentTeam.name== ServercurrentTeam.name) {
-                    team_existens = true; 
-                   // Si el cliente actual es el lider del equipo busca por request aceptados
-                    if (ClientcurrentTeam.leader.name == ServercurrentTeam.leader.name) 
-                    {
-                        if (ClientcurrentTeam.aceptedRequest != null)
-                            ServercurrentTeam.members.add(ClientcurrentTeam.aceptedRequest);
+                if (ClientcurrentTeam.name != null && (ClientcurrentTeam.name == null ? ServercurrentTeam.name == null : ClientcurrentTeam.name.equals(ServercurrentTeam.name))) {
+                    team_existens = true;
+                    // Si el cliente actual es el lider del equipo busca por request aceptados
+                    if (ClientcurrentTeam.leader.name == null ? ServercurrentTeam.leader.name == null : ClientcurrentTeam.leader.name.equals(ServercurrentTeam.leader.name)) {
+                        if (ClientcurrentTeam.aceptedRequest.size() > 0) {
+                            ServercurrentTeam.members.add(ClientcurrentTeam.aceptedRequest.get(0));
+                        }
 
                     }
                     // Busca si el cliente esta enviando request para entrar a un equipo
@@ -113,24 +145,21 @@ public class Datapack implements Serializable {
                         ServercurrentTeam.request.add(ClientcurrentTeam.request.get(0));
                     }
                 }
-                
-                
+
             }
-            
+
         }
-        if (Clientpack.newTeam != null){
-            Serverpack.neighborhoodTeams.add(Clientpack.newTeam); 
+        if (Clientpack.newTeam.name != null) {
+            Serverpack.neighborhoodTeams.add(Clientpack.newTeam);
         }
-    
 
-        Serverpack.DatapackLock.unlock ();
+        Serverpack.DatapackLock.unlock();
 
-}
+    }
 
-@Override
-        public String toString() {
+    @Override
+    public String toString() {
         return "datapack{" + "self=" + self + ", player=" + player + '}';
     }
-    
-    
+
 }

@@ -20,7 +20,7 @@ public class Team implements Serializable{
     public Player leader; 
     public ArrayList<Player> members; 
     public ArrayList<Player> request;
-    public Player aceptedRequest;
+    public ArrayList<Player> aceptedRequest;
     
 
     @Override
@@ -36,7 +36,9 @@ public class Team implements Serializable{
     public Team() {
         members = new ArrayList();
         request = new ArrayList(); 
+        aceptedRequest = new ArrayList<>(); 
         name = null; 
+        leader = null; 
         
         
     }

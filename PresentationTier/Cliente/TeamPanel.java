@@ -17,6 +17,7 @@ import javax.swing.JList;
  */
 public class TeamPanel extends javax.swing.JPanel {
 
+    Team newTeam; 
     ArrayList<Team> playerTeam; 
     Player currentPlayer; 
     
@@ -26,10 +27,12 @@ public class TeamPanel extends javax.swing.JPanel {
     public TeamPanel() {
         initComponents();
         Combo_TeamList.removeAllItems();
-        list_requestList.removeAll();
-        list_teamMembers.removeAll();
+        combo_myTeam.removeAllItems();
+        combo_request.removeAllItems();
         
     }
+    
+    
 
     public JComboBox getCombo_TeamList() {
         return Combo_TeamList;
@@ -39,23 +42,23 @@ public class TeamPanel extends javax.swing.JPanel {
         this.Combo_TeamList = Combo_TeamList;
     }
 
-    public JList getList_requestList() {
-        return list_requestList;
+    public JComboBox getCombo_myTeam() {
+        return combo_myTeam;
     }
 
-    public void setList_requestList(JList list_requestList) {
-        this.list_requestList = list_requestList;
+    public void setCombo_myTeam(JComboBox combo_myTeam) {
+        this.combo_myTeam = combo_myTeam;
     }
 
-    public JList getList_teamMembers() {
-        return list_teamMembers;
+    public JComboBox getCombo_request() {
+        return combo_request;
     }
 
-    public void setList_teamMembers(JList list_teamMembers) {
-        this.list_teamMembers = list_teamMembers;
+    public void setCombo_request(JComboBox combo_request) {
+        this.combo_request = combo_request;
     }
-    
-    
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,8 +70,6 @@ public class TeamPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        list_teamMembers = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         jPanel_MyTeamDef = new javax.swing.JPanel();
         Combo_TeamList = new javax.swing.JComboBox();
@@ -76,19 +77,12 @@ public class TeamPanel extends javax.swing.JPanel {
         button_creatteam = new javax.swing.JButton();
         button_jointeam = new javax.swing.JButton();
         jPanel_teamManager = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        list_requestList = new javax.swing.JList();
         button_acceptPlayer = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        combo_request = new javax.swing.JComboBox();
+        combo_myTeam = new javax.swing.JComboBox();
 
         jTextField1.setText("jTextField1");
-
-        list_teamMembers.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(list_teamMembers);
 
         jLabel1.setText("My team");
 
@@ -122,7 +116,7 @@ public class TeamPanel extends javax.swing.JPanel {
             .addGroup(jPanel_MyTeamDefLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_MyTeamDefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(text_creatteam)
+                    .addComponent(text_creatteam, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addComponent(Combo_TeamList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_MyTeamDefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,44 +137,46 @@ public class TeamPanel extends javax.swing.JPanel {
                 .addGap(0, 16, Short.MAX_VALUE))
         );
 
-        list_requestList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(list_requestList);
-
         button_acceptPlayer.setText("Acept player");
+        button_acceptPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_acceptPlayerActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Team requests");
+
+        combo_request.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel_teamManagerLayout = new javax.swing.GroupLayout(jPanel_teamManager);
         jPanel_teamManager.setLayout(jPanel_teamManagerLayout);
         jPanel_teamManagerLayout.setHorizontalGroup(
             jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_teamManagerLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(button_acceptPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(button_acceptPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(247, 247, 247)))))
+                        .addComponent(jLabel3)
+                        .addGap(247, 247, 247)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(combo_request, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel_teamManagerLayout.setVerticalGroup(
             jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_teamManagerLayout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(button_acceptPlayer))
+                .addComponent(combo_request, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button_acceptPlayer)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        combo_myTeam.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -189,18 +185,16 @@ public class TeamPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel_teamManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel_teamManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(jLabel1))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel_MyTeamDef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(combo_myTeam, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel_MyTeamDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,14 +203,14 @@ public class TeamPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combo_myTeam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel_MyTeamDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel_teamManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel_teamManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -225,8 +219,10 @@ public class TeamPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_text_creatteamActionPerformed
 
     private void button_creatteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_creatteamActionPerformed
-        Team newTeam = new Team(text_creatteam.getText(), currentPlayer); 
-        playerTeam.add(newTeam); 
+
+        this.newTeam.name = text_creatteam.getText(); 
+        this.newTeam.leader = currentPlayer;
+        
     }//GEN-LAST:event_button_creatteamActionPerformed
 
     private void button_jointeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_jointeamActionPerformed
@@ -234,21 +230,30 @@ public class TeamPanel extends javax.swing.JPanel {
         joiningTeam.request.add(currentPlayer); 
     }//GEN-LAST:event_button_jointeamActionPerformed
 
+    private void button_acceptPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_acceptPlayerActionPerformed
+        Player newPlayer = (Player)combo_request.getSelectedItem(); 
+        for (Team currentTeam: playerTeam){
+            if (currentTeam.leader.name == currentPlayer.name){
+                currentTeam.aceptedRequest.add(newPlayer); 
+                                
+            }
+        }
+        
+    }//GEN-LAST:event_button_acceptPlayerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Combo_TeamList;
     private javax.swing.JButton button_acceptPlayer;
     private javax.swing.JButton button_creatteam;
     private javax.swing.JButton button_jointeam;
+    private javax.swing.JComboBox combo_myTeam;
+    private javax.swing.JComboBox combo_request;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel_MyTeamDef;
     private javax.swing.JPanel jPanel_teamManager;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JList list_requestList;
-    private javax.swing.JList list_teamMembers;
     private javax.swing.JTextField text_creatteam;
     // End of variables declaration//GEN-END:variables
 }

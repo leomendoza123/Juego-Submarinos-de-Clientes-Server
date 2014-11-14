@@ -53,7 +53,7 @@ public class Ocean extends Thread {
     public void run() {
         while (OceanRuning) {
             clientNeighborhoodUpdate();
-            addNewWaterElementsFromClients(); 
+            addNewWaterElementsFromClients();
             startNewWaterElements();
         }
     }
@@ -73,8 +73,8 @@ public class Ocean extends Thread {
         }
         OceanListLock.unlock();
     }
-    
-        private void addNewWaterElementsFromClients() {
+
+    private void addNewWaterElementsFromClients() {
         OceanListLock.lock();
         for (Datapack client : clients) {
             if (client.self != null && !neighborhood.contains(client.self)) {
@@ -103,8 +103,9 @@ public class Ocean extends Thread {
             try {
                 datapack.neighborhood = new ArrayList<>();
                 for (WaterElement neighbor : neighborhood) {
-                    if (neighbor!= datapack.self)
+                    if (neighbor != datapack.self) {
                         datapack.neighborhood.add(neighbor);
+                    }
                 }
             } finally {
                 datapack.DatapackLock.unlock();
@@ -113,11 +114,12 @@ public class Ocean extends Thread {
         OceanListLock.unlock();
 
     }
-    
-     private void clientTeamUpdate() {
+
+
+    private void clientTeamUpdate() {
 
         OceanListLock.lock();
- 
+
         OceanListLock.unlock();
 
     }

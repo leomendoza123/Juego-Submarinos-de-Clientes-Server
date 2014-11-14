@@ -56,8 +56,14 @@ public class ClientDataInterfaceHandler extends Thread {
                 //
                  double health = datapack.self.health;
                  
-                 for (Team currentTeam: datapack.neighborhoodTeams)
-                    pantallaCliente.getTeamPanel().getCombo_TeamList().addItem(currentTeam);
+                 // Agrega nuevos equipos al combo box
+                 if (datapack.neighborhoodTeams.size() !=pantallaCliente.getTeamPanel().getCombo_TeamList().getItemCount() ){
+                    
+                        pantallaCliente.getTeamPanel().getCombo_TeamList().removeAllItems();
+                     for (Team currentTeam: datapack.neighborhoodTeams){
+                       pantallaCliente.getTeamPanel().getCombo_TeamList().addItem(currentTeam);
+                    }
+                 }
                          
                  
                

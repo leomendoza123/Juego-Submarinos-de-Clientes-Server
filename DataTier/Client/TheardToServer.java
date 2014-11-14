@@ -62,8 +62,10 @@ public class TheardToServer extends Thread {
                 while (esperandoDatos){
                     Serverdatapack = (Datapack) ois.readObject();
                     if (Serverdatapack != null) {
+                        
+                        
                         esperandoDatos = false;
-                        Datapack.DataFromServerpackToClientpack(Clientdatapack, Serverdatapack);       
+                        Datapack.DataFromServerpackToClientpack(Clientdatapack, Serverdatapack);  
                     }
                 }
             } catch (IOException ex) {
