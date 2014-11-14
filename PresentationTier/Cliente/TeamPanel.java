@@ -25,6 +25,9 @@ public class TeamPanel extends javax.swing.JPanel {
      */
     public TeamPanel() {
         initComponents();
+        Combo_TeamList.removeAllItems();
+        list_requestList.removeAll();
+        list_teamMembers.removeAll();
         
     }
 
@@ -106,6 +109,11 @@ public class TeamPanel extends javax.swing.JPanel {
         });
 
         button_jointeam.setText("Join");
+        button_jointeam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_jointeamActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_MyTeamDefLayout = new javax.swing.GroupLayout(jPanel_MyTeamDef);
         jPanel_MyTeamDef.setLayout(jPanel_MyTeamDefLayout);
@@ -114,15 +122,12 @@ public class TeamPanel extends javax.swing.JPanel {
             .addGroup(jPanel_MyTeamDefLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel_MyTeamDefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_MyTeamDefLayout.createSequentialGroup()
-                        .addComponent(text_creatteam, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button_creatteam))
-                    .addGroup(jPanel_MyTeamDefLayout.createSequentialGroup()
-                        .addComponent(Combo_TeamList, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(button_jointeam)))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(text_creatteam)
+                    .addComponent(Combo_TeamList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_MyTeamDefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(button_jointeam, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(button_creatteam, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanel_MyTeamDefLayout.setVerticalGroup(
             jPanel_MyTeamDefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,14 +160,16 @@ public class TeamPanel extends javax.swing.JPanel {
             jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
                 .addGroup(jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(button_acceptPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jLabel3))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_teamManagerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel_teamManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(button_acceptPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel_teamManagerLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(247, 247, 247)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_teamManagerLayout.setVerticalGroup(
@@ -184,7 +191,7 @@ public class TeamPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel_teamManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(16, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -192,8 +199,8 @@ public class TeamPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel_MyTeamDef, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jPanel_MyTeamDef, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,6 +228,11 @@ public class TeamPanel extends javax.swing.JPanel {
         Team newTeam = new Team(text_creatteam.getText(), currentPlayer); 
         playerTeam.add(newTeam); 
     }//GEN-LAST:event_button_creatteamActionPerformed
+
+    private void button_jointeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_jointeamActionPerformed
+        Team joiningTeam = (Team) Combo_TeamList.getSelectedItem(); 
+        joiningTeam.request.add(currentPlayer); 
+    }//GEN-LAST:event_button_jointeamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
