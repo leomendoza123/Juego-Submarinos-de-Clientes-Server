@@ -58,11 +58,17 @@ public class Datapack implements Serializable {
         Clientdatapack.self.speed = Serverdatapack.self.speed;
         Clientdatapack.self.size = Serverdatapack.self.size;
         Clientdatapack.neighborhood = Serverdatapack.neighborhood;
-        System.out.println( (Clientdatapack.neighborhoodTeams));  //= Serverdatapack.neighborhoodTeams;
+        
         Clientdatapack.self.localisation = Serverdatapack.self.localisation;
         Clientdatapack.self.health = Clientdatapack.self.health;
         if (Clientdatapack.player.points < Serverdatapack.player.points) {
             Clientdatapack.player.points = Serverdatapack.player.points;
+        }
+        
+        /// Manejo de vecinos
+        Clientdatapack.neighborhoodTeams.clear(); 
+        for (Team currentTeam: Serverdatapack.neighborhoodTeams){
+            Clientdatapack.neighborhoodTeams.add(currentTeam);
         }
 
         Clientdatapack.DatapackLock.unlock();
