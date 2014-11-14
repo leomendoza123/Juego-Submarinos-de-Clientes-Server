@@ -12,9 +12,11 @@ import LogicTier.InGame.Players.Player;
 import LogicTier.InGame.WaterElements.Submarine;
 import eu.hansolo.steelseries.gauges.DigitalRadial;
 import eu.hansolo.steelseries.gauges.DisplayRectangular;
+import eu.hansolo.steelseries.gauges.LinearBargraph;
 import eu.hansolo.steelseries.gauges.Radial;
 import eu.hansolo.steelseries.gauges.Radial1Square;
 import eu.hansolo.steelseries.gauges.Radial2Top;
+import eu.hansolo.steelseries.gauges.RadialCounter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,8 +36,8 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
     static DataTier.Packs.Datapack datapack;
     Player player; 
     Submarine self; 
-    Radial gaugeProfundidad;
-    Radial1Square gaugeGrados;
+    LinearBargraph gaugeProfundidad;
+    RadialCounter gaugeGrados;
     Radial2Top gaugeVelocidad;
     DigitalRadial gaugeVida;
     /**
@@ -46,14 +48,15 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         self = new Submarine(10, 0, 0, 0, Color.yellow, 0.0, new Point (0,0)); 
         player = new Player(20, "Jugador"); /// Modicar la forma de iniciar un jugador
         datapack = new Datapack(self, player); 
-        gaugeProfundidad = new Radial();
+        gaugeProfundidad = new LinearBargraph();
         gaugeProfundidad.setTitle("Depth Units");
         gaugeProfundidad.setUnitString("100 Max U");
         
-        gaugeGrados = new Radial1Square();
+        gaugeGrados = new RadialCounter();
         gaugeGrados.setTitle("Grados");
         gaugeGrados.setUnitString("360 Max U");
         gaugeGrados.setMaxValue(360);
+        gaugeGrados.setValueAnimated(360);
         
         gaugeVelocidad = new Radial2Top();
         gaugeVelocidad.setTitle("Speed");
