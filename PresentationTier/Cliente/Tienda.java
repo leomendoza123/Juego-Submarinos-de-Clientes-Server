@@ -29,7 +29,7 @@ public class Tienda extends javax.swing.JFrame {
     public Tienda() {
         menuImg1.setImageIcon("/Images/menuImg2.png/");
         initComponents();
-        this.getContentPane().setBackground(Color.BLUE);
+        this.getContentPane().setBackground(Color.darkGray);
     }
 
     /**

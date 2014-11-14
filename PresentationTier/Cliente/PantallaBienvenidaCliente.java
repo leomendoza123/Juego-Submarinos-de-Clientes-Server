@@ -68,6 +68,12 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         
         
         initComponents();
+        this.getContentPane().setBackground(Color.darkGray);
+        jPanel1.setBackground(Color.darkGray);
+        jPanel2.setBackground(Color.darkGray);
+        jPanel3.setBackground(Color.darkGray);
+        jPanel4.setBackground(Color.darkGray);
+        
         cliente = new Client();
         try {
            cliente.conexion(datapack, this);
