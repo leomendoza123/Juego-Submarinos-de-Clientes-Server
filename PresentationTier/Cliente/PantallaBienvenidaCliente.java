@@ -47,8 +47,12 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
     public PantallaBienvenidaCliente() {
         
         self = new Submarine(10, 0, 0, 0, Color.yellow, 0.0, new Point (0,0)); 
-        player = new Player(20, "Jugador"); /// Modicar la forma de iniciar un jugador
-        datapack = new Datapack(self, player); 
+        player = new Player(20, "Jugador2"); /// Modicar la forma de iniciar un jugador
+        StringBuffer newTeam = new StringBuffer(""); 
+        StringBuffer joinTeam = new StringBuffer(""); 
+        StringBuffer aceptTeam = new StringBuffer(""); 
+        
+        datapack = new Datapack(self, newTeam, joinTeam, aceptTeam, player);
         
         
         gaugeProfundidad = new LinearBargraph();
@@ -74,9 +78,7 @@ public class PantallaBienvenidaCliente extends javax.swing.JFrame {
         initComponents();
         
         
-        teamPanel2.currentPlayer = player; 
-        teamPanel2.playerTeam = datapack.neighborhoodTeams; 
-        teamPanel2.newTeam = datapack.newTeam; 
+        teamPanel2.playerDatapack = this.datapack;  
               
         cliente = new Client();
         try {

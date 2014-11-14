@@ -49,6 +49,7 @@ public class TheardToServer extends Thread {
             try {
                 oos.writeObject(Clientdatapack);
                 oos.reset();
+                Datapack.ClientOneTimeData (Clientdatapack); 
             } catch (IOException ex) {
                 System.out.println("Error enviando datapack:" + ex);
             }

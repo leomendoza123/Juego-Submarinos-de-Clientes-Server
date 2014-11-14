@@ -5,6 +5,7 @@
  */
 package PresentationTier.Cliente;
 
+import DataTier.Packs.Datapack;
 import LogicTier.InGame.Players.Player;
 import LogicTier.InGame.Players.Team;
 import java.util.ArrayList;
@@ -17,9 +18,7 @@ import javax.swing.JList;
  */
 public class TeamPanel extends javax.swing.JPanel {
 
-    Team newTeam; 
-    ArrayList<Team> playerTeam; 
-    Player currentPlayer; 
+    Datapack playerDatapack; 
     
     /**
      * Creates new form Team
@@ -219,25 +218,30 @@ public class TeamPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_text_creatteamActionPerformed
 
     private void button_creatteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_creatteamActionPerformed
-
-        this.newTeam.name = text_creatteam.getText(); 
-        this.newTeam.leader = currentPlayer;
+        this.playerDatapack.DatapackLock.lock();
+        
+        String newTeam  = text_creatteam.getText(); 
+        button_creatteam.setEnabled(false);
+        this.playerDatapack.newTeam.append(newTeam); 
+        
+        this.playerDatapack.DatapackLock.unlock();
         
     }//GEN-LAST:event_button_creatteamActionPerformed
 
     private void button_jointeamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_jointeamActionPerformed
-        Team joiningTeam = (Team) Combo_TeamList.getSelectedItem(); 
-        joiningTeam.request.add(currentPlayer); 
+        this.playerDatapack.DatapackLock.lock();
+        String Team  = ((String)Combo_TeamList.getSelectedItem()); 
+        this.playerDatapack.SendRequestToJoinTeam.append(Team); 
+        this.playerDatapack.DatapackLock.unlock();
     }//GEN-LAST:event_button_jointeamActionPerformed
 
     private void button_acceptPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_acceptPlayerActionPerformed
-        Player newPlayer = (Player)combo_request.getSelectedItem(); 
-        for (Team currentTeam: playerTeam){
-            if (currentTeam.leader.name == currentPlayer.name){
-                currentTeam.aceptedRequest.add(newPlayer); 
-                                
-            }
-        }
+        this.playerDatapack.DatapackLock.lock();
+        String PlayerAcepted  = ((String)combo_request.getSelectedItem());
+        combo_request.removeItem(combo_request.getSelectedItem());
+        this.playerDatapack.acepmember.append(PlayerAcepted); 
+        this.playerDatapack.DatapackLock.unlock();
+
         
     }//GEN-LAST:event_button_acceptPlayerActionPerformed
 

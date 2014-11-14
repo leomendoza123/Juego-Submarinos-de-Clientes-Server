@@ -17,10 +17,8 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Team implements Serializable{
     public Lock TeamLock = new ReentrantLock();
     public String name; 
-    public Player leader; 
-    public ArrayList<Player> members; 
-    public ArrayList<Player> request;
-    public ArrayList<Player> aceptedRequest;
+    public String leader; 
+    public ArrayList<String> members; 
     
 
     @Override
@@ -28,15 +26,15 @@ public class Team implements Serializable{
         return "team{" + "name=" + name + '}';
     }
 
-    public Team(String name, Player leader) {
+    public Team(String name, String leader) {
         this.name = name;
         this.leader = leader;
+        members = new ArrayList();
+
     }
 
     public Team() {
         members = new ArrayList();
-        request = new ArrayList(); 
-        aceptedRequest = new ArrayList<>(); 
         name = null; 
         leader = null; 
         

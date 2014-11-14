@@ -69,15 +69,14 @@ public class ClientDataInterfaceHandler extends Thread {
                     datapack.GetRequestToJoinTeam = new StringBuffer("");
 
                 }
-                 // Agrega nuevos miembros al 
+                // Agrega nuevos miembros al 
 
                 for (Team neighborhoodTeam : datapack.neighborhoodTeams) {
                     for (String playerName : neighborhoodTeam.members) {
-                        if (playerName.equals(datapack.player.name)) 
-                             pantallaCliente.getTeamPanel().getCombo_myTeam().removeAllItems();
+
+                        if (playerName.equals(datapack.player.name)) {
+                            pantallaCliente.getTeamPanel().getCombo_myTeam().removeAllItems();
                             for (String member : neighborhoodTeam.members) {
-                                
-                               
                                 pantallaCliente.getTeamPanel().getCombo_myTeam().addItem(member);
                             }
                         }

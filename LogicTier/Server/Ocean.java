@@ -7,6 +7,7 @@ package LogicTier.Server;
 
 import DataTier.Packs.Datapack;
 import DataTier.Server.TheardToClient;
+import LogicTier.InGame.Players.Team;
 import LogicTier.InGame.WaterElements.Ship;
 import LogicTier.InGame.WaterElements.WaterElement;
 import java.awt.Color;
@@ -26,6 +27,7 @@ public class Ocean extends Thread {
 
     public Lock OceanListLock = new ReentrantLock();
     ArrayList<WaterElement> neighborhood = new ArrayList<>();
+    ArrayList<Team> neighborhoodTeams = new ArrayList<>();
     ArrayList<Datapack> clients = new ArrayList<>();
     boolean OceanRuning;
 
@@ -55,6 +57,8 @@ public class Ocean extends Thread {
             clientNeighborhoodUpdate();
             addNewWaterElementsFromClients();
             startNewWaterElements();
+            teamManagement();
+            clientNeighborhoodTeamUpdate();
         }
     }
 
@@ -115,12 +119,83 @@ public class Ocean extends Thread {
 
     }
 
+    private void clientNeighborhoodTeamUpdate() {
 
-    private void clientTeamUpdate() {
+        OceanListLock.lock();
+        for (Datapack datapack : clients) {
+            datapack.DatapackLock.lock();
+            try {
+                datapack.neighborhoodTeams = new ArrayList<>();
+                for (Team neighborTeam : neighborhoodTeams) {
+                    datapack.neighborhoodTeams.add(neighborTeam);
+                }
+            } finally {
+                datapack.DatapackLock.unlock();
+            }
+        }
+        OceanListLock.unlock();
+
+    }
+
+    private void teamManagement() {
 
         OceanListLock.lock();
 
+        // Crea equipo 
+        for (Datapack clientDatapackRequester : clients) {
+            clientDatapackRequester.DatapackLock.lock();
+
+            TeamManagmentNewTeams(clientDatapackRequester);
+            TeamManagmentJoinTeam(clientDatapackRequester);
+            TeamManagmentAceptMember (clientDatapackRequester); 
+
+            clientDatapackRequester.DatapackLock.unlock();
+        }
+
         OceanListLock.unlock();
 
+    }
+
+    private void TeamManagmentAceptMember(Datapack clientDatapackRequester) {
+        if (!"".equals(clientDatapackRequester.acepmember.toString())) {
+            // Se quiere aceptar a un nuevo miembro
+            for (Team neighborhoodTeam : neighborhoodTeams) {
+                if (neighborhoodTeam.leader.equals(clientDatapackRequester.player.name)){
+                    neighborhoodTeam.members.add(clientDatapackRequester.acepmember.toString());
+                    clientDatapackRequester.acepmember = new StringBuffer(""); 
+                    
+     
+                }
+            }
+
+        }
+    }
+
+    private void TeamManagmentJoinTeam(Datapack clientDatapackRequester) {
+        if (!"".equals(clientDatapackRequester.SendRequestToJoinTeam.toString())) {
+            // Se quiere hacer un join team request
+            for (Team neighborhoodTeam : neighborhoodTeams) {
+                if (neighborhoodTeam.name == null ? clientDatapackRequester.SendRequestToJoinTeam.toString() == null : neighborhoodTeam.name.equals(clientDatapackRequester.SendRequestToJoinTeam.toString())) {
+                    /// Busca al leader para mandarle la notificacion
+                    for (Datapack clientsDatapackReciver : clients) {
+                        if (clientsDatapackReciver.player.name.equals(neighborhoodTeam.leader)) {
+                            clientsDatapackReciver.GetRequestToJoinTeam = new StringBuffer(clientDatapackRequester.player.name);
+                            clientDatapackRequester.SendRequestToJoinTeam = new StringBuffer("");
+
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void TeamManagmentNewTeams(Datapack clientDatapack) {
+        // Equipos nuevos
+        if (!"".equals(clientDatapack.newTeam.toString())) {
+            neighborhoodTeams.add(new Team(clientDatapack.newTeam.toString(), clientDatapack.player.name));
+            clientDatapack.newTeam = new StringBuffer("");
+
+        }
     }
 }
