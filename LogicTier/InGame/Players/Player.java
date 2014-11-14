@@ -14,21 +14,18 @@ import java.io.Serializable;
 public class Player implements Serializable{
     public int points; 
     public String name; 
-    public Team team; 
 
     public Player(int points, String name) {
         this.points = points;
         this.name = name;
-        this.team = null;
-    }
-    public Player() {
-        this.team = new Team();
     }
 
+    public Player() {
+    }
     
     @Override
     public String toString() {
-        return "player{" + "name=" + name + ", team=" + team + '}';
+        return "player{" + "name=" + name +'}';
     }
 
   

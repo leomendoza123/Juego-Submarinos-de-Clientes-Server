@@ -63,7 +63,7 @@ public class TheardToServer extends Thread {
                     Serverdatapack = (Datapack) ois.readObject();
                     if (Serverdatapack != null) {
                         esperandoDatos = false;
-                        DataFromServerpackToClientpack();       
+                        Datapack.DataFromServerpackToClientpack(Clientdatapack, Serverdatapack);       
                     }
                 }
             } catch (IOException ex) {
@@ -75,25 +75,6 @@ public class TheardToServer extends Thread {
 
          
         }
-    }
-
-    private void DataFromServerpackToClientpack() {
-        Clientdatapack.DatapackLock.lock();
-        String data = Serverdatapack.self.toString() + "\n";
-        System.out.println(Serverdatapack);
-        Clientdatapack.self.color = Serverdatapack.self.color;
-        Clientdatapack.self.depth = Serverdatapack.self.depth;
-        Clientdatapack.self.direction = Serverdatapack.self.direction;
-        Clientdatapack.self.loot_value = Serverdatapack.self.loot_value;
-        Clientdatapack.self.speed = Serverdatapack.self.speed;
-        Clientdatapack.self.size = Serverdatapack.self.size;
-        Clientdatapack.neighborhood  = Serverdatapack.neighborhood;
-        Clientdatapack.self.localisation = Serverdatapack.self.localisation; 
-        Clientdatapack.self.health = Clientdatapack.self.health; 
-        if (Clientdatapack.player.points<Serverdatapack.player.points){
-            Clientdatapack.player.points = Serverdatapack.player.points; 
-        }
-        Clientdatapack.DatapackLock.unlock();
     }
 
     public void pausar() {

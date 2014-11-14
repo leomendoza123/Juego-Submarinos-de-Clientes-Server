@@ -113,4 +113,12 @@ public class Ocean extends Thread {
         OceanListLock.unlock();
 
     }
+    
+     private void clientTeamUpdate() {
+
+        OceanListLock.lock();
+ 
+        OceanListLock.unlock();
+
+    }
 }

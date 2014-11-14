@@ -29,14 +29,14 @@ public class TheardToClient extends Thread {
     TheardToClient enemigo = null;
     // identificar el numero de jugador
     JTextArea server_text_area;
-    Datapack Serverpack; 
+    Datapack Serverpack;
 
     public TheardToClient(Socket cliente, Server serv, JTextArea server_text_area, Datapack DatapackPointer) {
         this.client = cliente;
         this.server = serv;
         this.server_text_area = server_text_area;
-        Serverpack =  DatapackPointer; 
-        
+        Serverpack = DatapackPointer;
+
         this.setName("(Server)Data Handler");
     }
 
@@ -50,30 +50,32 @@ public class TheardToClient extends Thread {
                 ObjectOutputStream oos = new ObjectOutputStream(client.getOutputStream());
                 ObjectInputStream ois = new ObjectInputStream(client.getInputStream());
                 Datapack Clientpack;
-                
+
                 while (true) {
                     //>>>>>>>>>>>>>>>>>>>>>< Lee datos de Cliente
                     Clientpack = (Datapack) ois.readObject();
                     if (Clientpack != null) {
-                        
-                        if (Serverpack.self == null){
+
+                        if (Serverpack.self == null) {
                             // Si es la primera lectura
-                            Serverpack = FirstServerConenction(Clientpack); 
+                            Serverpack = FirstServerConenction(Clientpack);
+                        } else {
+                            Datapack.DataFromClientpackToServerPack(Clientpack, Serverpack);
                         }
-                        else{
-                            DataFromClientpackToServerPack(Clientpack, Serverpack);
+                        try {
+                            sleep(100);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(TheardToClient.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    //>>>>>>>>>>>>>>>>>>>>< Escribe datos a cliente
+                        //>>>>>>>>>>>>>>>>>>>>< Escribe datos a cliente
                         Serverpack.DatapackLock.lock();
                         try {
                             oos.reset();
                             oos.writeObject(Serverpack);
-                        } 
-                        catch (IOException ex) {
+                        } catch (IOException ex) {
                             System.out.println("Error enviando datapack:" + ex);
                         }
                         Serverpack.DatapackLock.unlock();
-
 
                     }
 
@@ -88,34 +90,9 @@ public class TheardToClient extends Thread {
 
     private Datapack FirstServerConenction(Datapack Clientpack) {
         // En caso de que sea la primera entrada al servidor
-        
+
         Serverpack.player = Clientpack.player;
         Serverpack.self = Clientpack.self;
         return Serverpack;
-    }
-
-    private void DataFromClientpackToServerPack(Datapack Clientpack, Datapack Serverpack) {
-        Serverpack.DatapackLock.lock();
-        Serverpack.player = Clientpack.player;
-        Serverpack.self.WaterElementLock.lock();
-        Serverpack.self.control_depht = Clientpack.self.control_depht;
-        Serverpack.self.control_direction = Clientpack.self.control_direction;
-        Serverpack.self.control_speed = Clientpack.self.control_speed;
-        Serverpack.self.WaterElementLock.unlock();
-        Serverpack.self.inmersion_efficiency =  Clientpack.self.inmersion_efficiency;
-        Serverpack.self.rudder_efficiency =  Clientpack.self.rudder_efficiency;
-        Serverpack.self.propeller_efficiency =  Clientpack.self.propeller_efficiency;
-        
-        if(Serverpack.player.points>Clientpack.player.points){
-            Serverpack.player.points = Clientpack.player.points; 
-        }
-
-        Serverpack.DatapackLock.unlock();
-        
-        try {
-            sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TheardToClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

@@ -16,6 +16,8 @@ class Team {
     Player leader; 
     ArrayList<Player> members; 
     ArrayList<Player> request;
+    ArrayList<Player> aceptedRequest;
+    
 
     @Override
     public String toString() {
