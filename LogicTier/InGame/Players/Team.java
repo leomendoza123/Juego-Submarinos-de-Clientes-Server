@@ -28,6 +28,11 @@ public class Team implements Serializable{
         return "team{" + "name=" + name + '}';
     }
 
+    public Team(String name, Player leader) {
+        this.name = name;
+        this.leader = leader;
+    }
+
     public Team() {
         members = new ArrayList();
         request = new ArrayList(); 

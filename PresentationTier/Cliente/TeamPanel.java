@@ -5,18 +5,54 @@
  */
 package PresentationTier.Cliente;
 
+import LogicTier.InGame.Players.Player;
+import LogicTier.InGame.Players.Team;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+
 /**
  *
  * @author Leo
  */
-public class Team extends javax.swing.JPanel {
+public class TeamPanel extends javax.swing.JPanel {
 
+    ArrayList<Team> playerTeam; 
+    Player currentPlayer; 
+    
     /**
      * Creates new form Team
      */
-    public Team() {
+    public TeamPanel() {
         initComponents();
+        
     }
+
+    public JComboBox getCombo_TeamList() {
+        return Combo_TeamList;
+    }
+
+    public void setCombo_TeamList(JComboBox Combo_TeamList) {
+        this.Combo_TeamList = Combo_TeamList;
+    }
+
+    public JList getList_requestList() {
+        return list_requestList;
+    }
+
+    public void setList_requestList(JList list_requestList) {
+        this.list_requestList = list_requestList;
+    }
+
+    public JList getList_teamMembers() {
+        return list_teamMembers;
+    }
+
+    public void setList_teamMembers(JList list_teamMembers) {
+        this.list_teamMembers = list_teamMembers;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,6 +99,11 @@ public class Team extends javax.swing.JPanel {
         });
 
         button_creatteam.setText("Creat");
+        button_creatteam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_creatteamActionPerformed(evt);
+            }
+        });
 
         button_jointeam.setText("Join");
 
@@ -175,6 +216,11 @@ public class Team extends javax.swing.JPanel {
     private void text_creatteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_creatteamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_text_creatteamActionPerformed
+
+    private void button_creatteamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_creatteamActionPerformed
+        Team newTeam = new Team(text_creatteam.getText(), currentPlayer); 
+        playerTeam.add(newTeam); 
+    }//GEN-LAST:event_button_creatteamActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

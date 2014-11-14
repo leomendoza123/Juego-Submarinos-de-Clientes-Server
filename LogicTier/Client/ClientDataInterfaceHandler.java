@@ -6,6 +6,7 @@
 package LogicTier.Client;
 
 import DataTier.Packs.Datapack;
+import LogicTier.InGame.Players.Team;
 import LogicTier.InGame.WaterElements.Submarine;
 import PresentationTier.Cliente.PantallaBienvenidaCliente;
 import java.awt.Color;
@@ -54,6 +55,12 @@ public class ClientDataInterfaceHandler extends Thread {
                 //TODO 
                 //
                  double health = datapack.self.health;
+                 
+                 for (Team currentTeam: datapack.neighborhoodTeams)
+                    pantallaCliente.getTeamPanel().getCombo_TeamList().addItem(currentTeam);
+                         
+                 
+               
                         
 
             } catch (InterruptedException ex) {

@@ -34,6 +34,7 @@ public class Datapack implements Serializable {
 
     public Datapack(Submarine self, Player player) {
         neighborhood = new ArrayList<>();
+        neighborhoodTeams = new ArrayList<>();
         this.player = player;
         this.self = self;
     }
@@ -57,7 +58,7 @@ public class Datapack implements Serializable {
         Clientdatapack.self.speed = Serverdatapack.self.speed;
         Clientdatapack.self.size = Serverdatapack.self.size;
         Clientdatapack.neighborhood = Serverdatapack.neighborhood;
-        Clientdatapack.neighborhoodTeams = Serverdatapack.neighborhoodTeams;
+        System.out.println( (Clientdatapack.neighborhoodTeams));  //= Serverdatapack.neighborhoodTeams;
         Clientdatapack.self.localisation = Serverdatapack.self.localisation;
         Clientdatapack.self.health = Clientdatapack.self.health;
         if (Clientdatapack.player.points < Serverdatapack.player.points) {
