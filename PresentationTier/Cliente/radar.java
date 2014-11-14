@@ -16,6 +16,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 /**
  *
@@ -25,7 +26,9 @@ public class radar extends javax.swing.JPanel {
 
     public Point localisation;
     public ArrayList<WaterElement> neighborhood;
-    public double radar_power = 10000;
+    public double radar_power = 0;
+    
+    public Datapack PlayerDatapack ; 
     
     private int dotsize = 10; 
 
@@ -38,6 +41,13 @@ public class radar extends javax.swing.JPanel {
     }
 
     private void doDrawing(Graphics g) {
+        try{
+            radar_power = PlayerDatapack.self.radar_efficiency; 
+        }
+        catch (Exception x){
+            /// El radar no sea ha creado 
+            
+        }
 
         Graphics2D g2d = (Graphics2D) g;
 

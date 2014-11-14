@@ -82,6 +82,9 @@ public class ClientDataInterfaceHandler extends Thread {
                         }
                     }
                 }
+                
+                pantallaCliente.getCoordinates().setText( datapack.self.localisation.x + "---" +datapack.self.localisation.y );
+                
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(ClientDataInterfaceHandler.class.getName()).log(Level.SEVERE, null, ex);

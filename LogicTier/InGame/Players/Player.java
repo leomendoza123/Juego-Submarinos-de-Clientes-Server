@@ -21,6 +21,7 @@ public class Player implements Serializable{
     }
 
     public Player() {
+        points = 0; 
     }
     
     @Override

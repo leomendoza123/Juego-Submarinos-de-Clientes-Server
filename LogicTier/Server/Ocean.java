@@ -7,6 +7,7 @@ package LogicTier.Server;
 
 import DataTier.Packs.Datapack;
 import DataTier.Server.TheardToClient;
+import LogicTier.InGame.Players.Player;
 import LogicTier.InGame.Players.Team;
 import LogicTier.InGame.WaterElements.Ship;
 import LogicTier.InGame.WaterElements.WaterElement;
@@ -92,8 +93,8 @@ public class Ocean extends Thread {
 
         Random r = new Random();
         Point Localization;
-        for (int i = 0; i < 30; i++) {
-            Localization = new Point(r.nextInt() % 1000, r.nextInt() % 1000);
+        for (int i = 0; i < 300; i++) {
+            Localization = new Point(r.nextInt() % 500000, r.nextInt() % 500000);
             Ship newShip = new Ship(10, 0, 0, 0, Color.BLACK, 0.0, Localization);
             neighborhood.add(newShip);
         }
@@ -198,4 +199,21 @@ public class Ocean extends Thread {
 
         }
     }
+    
+    private void ChatManagment(Datapack clientDatapack){
+        for (Datapack currentDatapackSender: clients){
+            if (""!=currentDatapackSender.SendChatMessage.toString()){
+                // Si esta enviando un mensaje
+                for (Datapack curreDatapackReciver: clients){
+                    double Distance =  (currentDatapackSender.self.localisation.distance(curreDatapackReciver.self.localisation));
+                    if (Distance<currentDatapackSender.self.radar_efficiency){
+                        curreDatapackReciver.getChatMessage.append(currentDatapackSender.SendChatMessage.toString());
+                        currentDatapackSender.SendChatMessage = new StringBuffer("");                       
+                    }
+                }
+            }
+        }
+    }
+    
+    
 }

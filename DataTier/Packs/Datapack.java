@@ -32,21 +32,17 @@ public class Datapack implements Serializable {
     public StringBuffer newTeam;
     public StringBuffer SendRequestToJoinTeam;
     public StringBuffer acepmember;
-    public StringBuffer chatMessage;
+    public StringBuffer SendChatMessage;
+    public StringBuffer getChatMessage;
     public StringBuffer GetRequestToJoinTeam;
-    
 
     public Player player;
 
-    public Datapack(Submarine self, StringBuffer newTeam, StringBuffer joinTeam, StringBuffer acepmember, Player player) {
+    public Datapack(Submarine self, Player player) {
         neighborhood = new ArrayList<>();
         neighborhoodTeams = new ArrayList<>();
         this.player = player;
-        this.self = self;
-        this.newTeam = newTeam;
-        this.SendRequestToJoinTeam = joinTeam;
-        this.acepmember = acepmember;
-        this.player = player;
+        this.self = self;        
         GetRequestToJoinTeam = new StringBuffer("");
     }
 
@@ -113,13 +109,16 @@ public class Datapack implements Serializable {
         Clientdatapack.newTeam = new StringBuffer("");
         Clientdatapack.SendRequestToJoinTeam = new StringBuffer("");
         Clientdatapack.acepmember = new StringBuffer("");
-        Clientdatapack.chatMessage = new StringBuffer("");
+        Clientdatapack.SendChatMessage = new StringBuffer("");
 
     }
     
     public static void ServerOneTimeData(Datapack Clientdatapack) {
 
         Clientdatapack.GetRequestToJoinTeam = new StringBuffer("");
+        Clientdatapack.getChatMessage = new StringBuffer("");
+
+
 
     }
 
