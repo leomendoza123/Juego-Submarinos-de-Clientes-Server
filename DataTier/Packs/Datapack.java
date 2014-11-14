@@ -29,6 +29,7 @@ public class Datapack implements Serializable {
     public Submarine self;
     public ArrayList<WaterElement> neighborhood;
     public ArrayList<Team> neighborhoodTeams;
+    public Team newTeam;
 
     public Player player;
 
@@ -37,6 +38,7 @@ public class Datapack implements Serializable {
         neighborhoodTeams = new ArrayList<>();
         this.player = player;
         this.self = self;
+        newTeam = null; 
     }
 
     public Datapack() {
@@ -44,6 +46,7 @@ public class Datapack implements Serializable {
         neighborhoodTeams = new ArrayList<>(); 
         this.player = new Player();
         this.self = null;
+        newTeam = null; 
 
     }
 
@@ -92,7 +95,7 @@ public class Datapack implements Serializable {
         
         boolean team_existens;
         for (Team ClientcurrentTeam : Clientpack.neighborhoodTeams) {
-             team_existens = false; 
+            
             for (Team ServercurrentTeam : Serverpack.neighborhoodTeams) {
                 
                 // Encuentra los equipos equivalentes
@@ -113,9 +116,10 @@ public class Datapack implements Serializable {
                 
                 
             }
-            if (!team_existens && ClientcurrentTeam.name!=null)
-                // Si el equipo no existe lo crea
-                Serverpack.neighborhoodTeams.add(ClientcurrentTeam); 
+            
+        }
+        if (Clientpack.newTeam != null){
+            Serverpack.neighborhoodTeams.add(Clientpack.newTeam); 
         }
     
 
