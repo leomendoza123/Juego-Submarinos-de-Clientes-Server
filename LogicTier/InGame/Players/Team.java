@@ -5,24 +5,37 @@
  */
 package LogicTier.InGame.Players;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  *
  * @author Leonardo
  */
-class Team {
-    String name; 
-    Player leader; 
-    ArrayList<Player> members; 
-    ArrayList<Player> request;
-    ArrayList<Player> aceptedRequest;
+public class Team implements Serializable{
+    public Lock TeamLock = new ReentrantLock();
+    public String name; 
+    public Player leader; 
+    public ArrayList<Player> members; 
+    public ArrayList<Player> request;
+    public Player aceptedRequest;
     
 
     @Override
     public String toString() {
         return "team{" + "name=" + name + '}';
     }
+
+    public Team() {
+        members = new ArrayList();
+        request = new ArrayList(); 
+        name = null; 
+        
+        
+    }
+    
     
     
 }
